@@ -10,7 +10,7 @@ use XML::Smart;
 use utf8;
 use Carp;
 
-our $VERSION = '0.02';
+our $VERSION = '0.021';
 
 my %area_zh = (
   '台北市'      => '36_01_data.htm',
@@ -92,8 +92,12 @@ In future it may support json and other formats as well.
 
 =head1 METHODS
 
+=over
+
 =item C<<new>>
+
 Create a new C<Weather::TW> object.
+
 =cut
 
 sub new {
@@ -104,9 +108,13 @@ sub new {
 }
 
 =item C<<area('$area_name')>>
+
 City name can be either Chinese or English. The returned value is C<$self> so you can use it for cascading.
+
     $xmlstr = $weather->area('Taipei City')->to_XML;
+
 The available area names are:
+
     台北市       Taipei City
     新北市       New Taipei City
     台中市       Taichung City
@@ -128,6 +136,7 @@ The available area names are:
     澎湖         Penghu
     金門         Kinmen
     馬祖         Matsu
+
 =cut
 
 sub area {
@@ -142,8 +151,11 @@ sub area {
 
 
 =item C<<area_zh>>
+
 Return area names in Chinese.
+
     @names = $weather->area_zh;
+
 =cut
 sub area_zh {
   my $self = shift;
@@ -151,8 +163,11 @@ sub area_zh {
 }
 
 =item C<<area_en>>
+
 Return area names in English.
+
     @names = $weather->area_en;
+
 =cut
 sub area_en {
   my $self = shift;
@@ -160,7 +175,11 @@ sub area_en {
 }
 
 =item C<<xml>>
+
 Return data as xml
+
+=back
+
 =cut
 sub xml{
   my $self = shift;
@@ -172,6 +191,7 @@ sub xml{
 =head1 SEE ALSO
 
 L<https://github.com/dryman/Weather-TW>
+
 L<XML::Smart>
 
 =head1 AUTHOR
