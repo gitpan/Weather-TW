@@ -1,0 +1,25 @@
+--- #YAML:1.0
+name:               Weather-TW
+version:            0.02
+abstract:           Fetch Taiwan weather data from 中央氣象局
+author:
+    - dryman <idryman@gmail.com>
+license:            unknown
+distribution_type:  module
+configure_requires:
+    ExtUtils::MakeMaker:  0
+build_requires:
+    ExtUtils::MakeMaker:  0
+requires:
+    HTML::Element:      0
+    HTML::TreeBuilder:  0
+    WWW::Mechanize:     0
+    XML::Smart:         0
+no_index:
+    directory:
+        - t
+        - inc
+generated_by:       ExtUtils::MakeMaker version 6.56
+meta-spec:
+    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
+    version:  1.4
