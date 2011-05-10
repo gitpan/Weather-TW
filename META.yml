@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Weather-TW
-version:            0.0244
+version:            0.025
 abstract:           Fetch Taiwan weather data from ¤¤¥¡®ð¶H§½
 author:
     - dryman <idryman@gmail.com>
@@ -15,7 +15,7 @@ requires:
     HTML::Element:      0
     HTML::TreeBuilder:  0
     JSON:               0
-    WWW::Mechanize:     0
+    LWP::UserAgent:     0
     XML::Smart:         0
 no_index:
     directory:
