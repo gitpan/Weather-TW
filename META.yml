@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Weather-TW
-version:            0.331
+version:            0.34
 abstract:           Fetch Taiwan weather data from L<http://www.cwb.gov.tw/>
 author:
     - dryman <idryman@gmail.com>
@@ -12,6 +12,7 @@ build_requires:
     ExtUtils::MakeMaker:  0
 requires:
     Carp:               0
+    Encode:             0
     HTML::Element:      0
     HTML::TreeBuilder:  0
     JSON:               0
