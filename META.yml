@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Weather-TW
-version:            0.30
+version:            0.31
 abstract:           Fetch Taiwan weather data from ¤¤¥¡®ð¶H§½
 author:
     - dryman <idryman@gmail.com>
