@@ -1,6 +1,6 @@
 package Weather::TW;
 
-our $VERSION = '0.352';
+our $VERSION = '0.500';
 
 =encoding utf-8
 
@@ -18,6 +18,7 @@ use JSON;
 use YAML qw(Dump);
 use utf8;
 use Carp;
+
 
 
 my %area_zh = (
@@ -74,31 +75,67 @@ my $url_en = "http://www.cwb.gov.tw/eng/forecast/taiwan/";
 =head1 NAME
 
 Weather::TW - Fetch Taiwan weather data from L<http://www.cwb.gov.tw/>
+Most methods are reimplimented in L<Weather::TW::Forecast> use them instead.
 
 =head1 SYNOPSIS
 
-  use Weather::TW;
+    use Weather::TW::Forecast;
+    my $weather = Weather::TW::Forecast->new(
+      location => '台北',
+    );
+    foreach ($weather->short_forecasts){
+      say $_->start;
+      say $_->end;         # DateTime objects specify forecast time interval
+      say $_->temperature; # Temperature string, ex: '23 ~ 25'
+      say $_->weather;     # Weather string, ex "陰短暫陣雨" 
+      say $_->confortable; # ex '舒適'
+      say $_->rain;        # probabilty to rain, 0~100%
+    }
+    foreach ($weather->weekly_forecasts){
+      say $_->day;         # DateTime object
+      say $_->temperature; # Temperature string, ex: '23 ~ 25'
+      say $_->weather;     # Weather string, ex "陰短暫陣雨" 
+    }
+    my $hash_ref = $weather->montly_mean;
+    say $hash_ref->{temp_high}; # Maximum temperature
+    say $hash_ref->{temp_low};  # Mininum temperature
+    say $hash_ref->{rain};      # Rain precipitation (mm)
 
-  my $weather = Weather::TW->new;
-  my $xml = $weather->area('Taipei City')->xml;
-  my $json = $weather->json;
-  my $yaml = $weather->yaml;
-  my %hash = $weather->hash;
+head1 DESCRIPTION
 
-  foreach my $area ($weather->area_en){
-    my $xml = $weather->area($area)->xml
-    print $xml;
-  }
+L<Weather::TW::Forecast> reimplement L<Weather::TW> with new web address (from
+V6 to V7) and new parser (use L<Mojo::DOM> instead of L<HTML::TreeBulder>). The
+methods in L<Weather::TW> will be deprecated and shiped to
+L<Weather::TW::Forecast>. More submodules will be develop to handle obsevations
+and detail rain infos.  L<Weather::TW> will be a abstract class to access these
+submodules.
 
-  use utf8;
-  $xml = $weather->area('台北')->xml;
-  # Chinese also works!
+=head1 OLD SYNOPSIS
+
+Documentation below will be deprecated. 
+
+    use Weather::TW;
+  
+    my $weather = Weather::TW->new;
+    my $xml = $weather->area('Taipei City')->xml;
+    my $json = $weather->json;
+    my $yaml = $weather->yaml;
+    my %hash = $weather->hash;
+  
+    foreach my $area ($weather->area_en){
+      my $xml = $weather->area($area)->xml
+      print $xml;
+    }
+  
+    use utf8;
+    $xml = $weather->area('台北')->xml;
+    # Chinese also works!
 
 =head1 DESCRIPTION
 
 This module parse data from L<http://www.cwb.gov.tw/> (中央氣象局), and generates xml/json/hash/yaml data.
 
-=head1 METHODS
+=head1 OLD METHODS
 
 =over
 
@@ -129,27 +166,27 @@ City name can be either Chinese or English. The returned value is C<$self> so yo
 
 The available area names are:
 
-   台北市         Taipei City
-   新北市         New Taipei City
-   台中市         Taichung City
-   台南市         Tainan City
-   高雄市         Kaohsiung City
-   基隆北海岸     Keelung North Coast
-   桃園           Taoyuan
-   新竹           Hsinchu
-   苗栗           Miaoli
-   彰化           Changhua
-   南投           Nantou
-   雲林           Yunlin
-   嘉義           Chiayi
-   屏東           Pingtung
-   恆春半島       Hengchun Peninsula
-   宜蘭           Yilan
-   花蓮           Hualien
-   台東           Taitung
-   澎湖           Penghu
-   金門           Kinmen
-   馬祖           Matsu
+    台北市         Taipei City
+    新北市         New Taipei City
+    台中市         Taichung City
+    台南市         Tainan City
+    高雄市         Kaohsiung City
+    基隆北海岸     Keelung North Coast
+    桃園           Taoyuan
+    新竹           Hsinchu
+    苗栗           Miaoli
+    彰化           Changhua
+    南投           Nantou
+    雲林           Yunlin
+    嘉義           Chiayi
+    屏東           Pingtung
+    恆春半島       Hengchun Peninsula
+    宜蘭           Yilan
+    花蓮           Hualien
+    台東           Taitung
+    澎湖           Penghu
+    金門           Kinmen
+    馬祖           Matsu
 
 =cut
 
